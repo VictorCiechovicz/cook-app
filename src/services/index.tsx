@@ -1,7 +1,11 @@
+import * as recipes from './recipesServices'
 import * as ingredientes from './ingredientsServices'
+import * as preparations from './preparationsServices'
 
 export const services = {
+  recipes,
   ingredientes,
+  preparations,
 
   storage: {
     imagePath:
