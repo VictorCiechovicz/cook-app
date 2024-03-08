@@ -14,14 +14,20 @@ export default function Recipes() {
   const [recipes, setRecipes] = useState<RecipeResponse[]>([])
 
   const params = useLocalSearchParams<{ ingredientsIds: string }>()
-  const ingredientesIds = params.ingredientsIds.split(',')
+  const ingredientsIds = params.ingredientsIds.split(',')
 
   useEffect(() => {
-    services.ingredients.findByIds(ingredientesIds).then(setIngredients)
+    services.recipes
+      .findByIngredientsIds(ingredientsIds)
+      .then(response => setRecipes(response))
+      .finally(() => setIsLoading(false))
   }, [])
 
   useEffect(() => {
-    services.recipes.findByIngredientsIds(ingredientesIds).then(setRecipes)
+    services.ingredients
+      .findByIds(ingredientsIds)
+      .then(response => setIngredients(response))
+      .finally(() => setIsLoading(false))
   }, [])
 
   if (isLoading) {
