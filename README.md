@@ -1,6 +1,7 @@
-![developed by Victor Ciechovicz (6)](https://user-images.githubusercontent.com/106246945/195260540-7233d5db-a953-4ef3-87a4-968045077539.png)
 
-# \***\*💻 CookApp\*\***
+![developed by Victor Ciechovicz](https://github.com/VictorCiechovicz/cook-app/assets/106246945/83f1a54b-4b4c-404c-8dc9-06ccdd64ae37)
+
+# \***\*👨🏻‍🍳 CookApp\*\***
 
 App to list products and show their possible recipes. This application was created for the purpose of studies.
 
