@@ -4,7 +4,7 @@ import { styles } from './styles'
 import { Selected } from '@/src/components/Selected'
 import { Ingredient } from '@/src/components/Ingredient'
 import { router } from 'expo-router'
-import {services} from '@/src/services'
+import { services } from '@/src/services'
 import { Loading } from '@/src/components/Loading'
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   function handleSearch() {
-    router.navigate('/recipes/')
+    router.navigate('/recipes/' + selected)
   }
   useEffect(() => {
     services.ingredientes
