@@ -3,11 +3,25 @@ import { styles } from './styles'
 import { MaterialIcons } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Recipe } from '@/src/components/Recipe'
+import { useEffect, useState } from 'react'
+import { services } from '@/src/services'
+import { Ingredients } from '@/src/components/Ingredients'
 
 export default function Recipes() {
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
+  const [recipes, setRecipes] = useState<RecipeResponse[]>([])
+
   const params = useLocalSearchParams<{ ingredientsIds: string }>()
   const ingredientesIds = params.ingredientsIds.split(',')
-  console.log(ingredientesIds)
+
+  useEffect(() => {
+    services.ingredients.findByIds(ingredientesIds).then(setIngredients)
+  }, [])
+
+  useEffect(() => {
+    services.recipes.findByIngredientsIds(ingredientesIds).then(setRecipes)
+  }, [])
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -20,13 +34,17 @@ export default function Recipes() {
         />
         <Text style={styles.title}>Ingredientes</Text>
       </View>
+      <Ingredients ingredients={ingredients} />
 
       <FlatList
-        data={['1']}
-        keyExtractor={i => i}
-        renderItem={() => (
-          <Recipe recipe={{ name: 'Omelete', image: '', minutes: 10 }} />
-        )}
+        data={recipes}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <Recipe recipe={item} />}
+        style={styles.recipes}
+        contentContainerStyle={styles.recipesContent}
+        showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{ gap: 16 }}
+        numColumns={2}
       />
     </View>
   )

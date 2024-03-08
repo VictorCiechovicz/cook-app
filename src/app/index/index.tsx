@@ -31,7 +31,7 @@ export default function Home() {
     router.navigate('/recipes/' + selected)
   }
   useEffect(() => {
-    services.ingredientes
+    services.ingredients
       .findAll()
       .then(setIngredients)
       .finally(() => setIsLoading(false))

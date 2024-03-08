@@ -15,20 +15,7 @@ export const styles = StyleSheet.create({
     fontSize: theme.fonts.size.heading.md,
     marginTop: 22
   },
-  subtitle: {
-    fontFamily: theme.fonts.family.regular
-  },
-  message: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.heading.md,
-    marginTop: 12,
-    marginBottom: 38,
-    color: theme.colors.gray_400
-  },
-  ingredient: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    paddingBottom: 200,
-    gap: 12
-  }
+
+  recipes: { padding: 32 },
+  recipesContent: { gap: 16 }
 })
