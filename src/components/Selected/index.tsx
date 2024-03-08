@@ -7,6 +7,7 @@ import Animated, {
 import { styles } from './styles'
 import { MaterialIcons } from '@expo/vector-icons'
 import { theme } from '@/src/theme'
+import { Button } from '../Button'
 
 type SelectedProps = {
   quantity: number
@@ -18,7 +19,7 @@ export function Selected({ quantity, onClear, onSearch }: SelectedProps) {
     <Animated.View
       style={styles.container}
       entering={SlideInDown.duration(500)}
-      exiting={BounceOutDown.duration(1000)}
+      exiting={BounceOutDown.duration(500)}
     >
       <View style={styles.header}>
         <Text style={styles.label}>{quantity} ingredientes selecionados</Text>
@@ -29,6 +30,7 @@ export function Selected({ quantity, onClear, onSearch }: SelectedProps) {
           color={theme.colors.gray_400}
         />
       </View>
+      <Button title="Encontrar" onPress={onSearch} />
     </Animated.View>
   )
 }

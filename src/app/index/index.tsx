@@ -1,11 +1,16 @@
+import { useEffect, useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { styles } from './styles'
 import { Selected } from '@/src/components/Selected'
 import { Ingredient } from '@/src/components/Ingredient'
-import { useState } from 'react'
+import { router } from 'expo-router'
+import {services} from '@/src/services'
+import { Loading } from '@/src/components/Loading'
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const [selected, setSelected] = useState<string[]>([])
+  const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
 
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
@@ -22,6 +27,19 @@ export default function Home() {
     ])
   }
 
+  function handleSearch() {
+    router.navigate('/recipes/')
+  }
+  useEffect(() => {
+    services.ingredientes
+      .findAll()
+      .then(setIngredients)
+      .finally(() => setIsLoading(false))
+  }, [])
+
+  if (isLoading) {
+    return <Loading />
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -35,13 +53,13 @@ export default function Home() {
         contentContainerStyle={styles.ingredient}
         showsVerticalScrollIndicator={false}
       >
-        {Array.from({ length: 50 }).map((item, index) => (
+        {ingredients.map(ingredient => (
           <Ingredient
-            key={index}
-            name="Tomate"
-            image=""
-            selected={selected.includes(String(index))}
-            onPress={() => handleToggleSelected(String(index))}
+            key={ingredient.id}
+            name={ingredient.name}
+            image={`${services.storage.imagePath}/${ingredient.image}`}
+            selected={selected.includes(ingredient.id)}
+            onPress={() => handleToggleSelected(ingredient.id)}
           />
         ))}
       </ScrollView>
@@ -49,7 +67,7 @@ export default function Home() {
         <Selected
           quantity={selected.length}
           onClear={handleClearSelected}
-          onSearch={() => {}}
+          onSearch={handleSearch}
         />
       )}
     </View>
