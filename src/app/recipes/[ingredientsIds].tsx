@@ -6,8 +6,10 @@ import { Recipe } from '@/src/components/Recipe'
 import { useEffect, useState } from 'react'
 import { services } from '@/src/services'
 import { Ingredients } from '@/src/components/Ingredients'
+import { Loading } from '@/src/components/Loading'
 
 export default function Recipes() {
+  const [isLoading, setIsLoading] = useState(true)
   const [ingredients, setIngredients] = useState<IngredientResponse[]>([])
   const [recipes, setRecipes] = useState<RecipeResponse[]>([])
 
@@ -21,6 +23,10 @@ export default function Recipes() {
   useEffect(() => {
     services.recipes.findByIngredientsIds(ingredientesIds).then(setRecipes)
   }, [])
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <View style={styles.container}>

@@ -40,6 +40,7 @@ export default function Home() {
   if (isLoading) {
     return <Loading />
   }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
